@@ -35,8 +35,8 @@ public class BackgroundPlayerService implements Runnable {
 
                 // 바닥 충돌
                 if (bottomColor != -2) {
-                    System.out.println("바닥에 충돌함");
-                    System.out.println("bottom color : " + bottomColor);
+                    // System.out.println("바닥에 충돌함");
+                    // System.out.println("bottom color : " + bottomColor);
                     player.setDown(false);
                 } else if (bottomColor == -2) {
                     if (!player.isDown() && !player.isUp()) {
@@ -46,11 +46,11 @@ public class BackgroundPlayerService implements Runnable {
 
                 // 외벽 충돌
                 if (leftColor.getRed() == 255 && leftColor.getGreen() == 0 && leftColor.getBlue() == 0) {
-                    System.out.println("왼쪽 벽에 충돌함");
+                    // System.out.println("왼쪽 벽에 충돌함");
                     player.setLeftWallCrash(true);
                     player.setLeft(false);
                 } else if (rightColor.getRed() == 255 && rightColor.getGreen() == 0 && rightColor.getBlue() == 0) {
-                    System.out.println("오른쪽 벽에 충돌함");
+                    // System.out.println("오른쪽 벽에 충돌함");
                     player.setRightWallCrash(true);
                     player.setRight(false);
                 } else {

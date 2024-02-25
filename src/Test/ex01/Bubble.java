@@ -12,6 +12,7 @@ public class Bubble extends JLabel implements Moveable{
     // 버블의 위치는 플레이어를 참고해야하기 때문에 의존성 컴포지션 필요
     // Composition : 객체 지향 프로그래밍에서 한 클래스가 다른 클래스의 인스턴스를 포함하는 것, 클래스 간의 관계 형성
     private Player player; // 플레이어의 정보 받아옴
+    private BackgroundBubbleService backgroundBubbleService;
 
     // 위치 상태
     private int x;
@@ -40,6 +41,8 @@ public class Bubble extends JLabel implements Moveable{
         bubble = new ImageIcon("Image/bubble.png");
         bubbled = new ImageIcon("Image/bubbled.png");
         bomb = new ImageIcon("Image/bomb.png");
+
+        backgroundBubbleService = new BackgroundBubbleService(this);
     }
 
     private void initSetting() {
@@ -58,6 +61,7 @@ public class Bubble extends JLabel implements Moveable{
 
     public void initThread() {
         // 버블은 스레드가 하나만 필요하다
+        System.out.println("Bubble");
         new Thread(()->{
             if (player.getPlayerDirecton() == PlayerDirecton.LEFT) {
                 left();
@@ -66,18 +70,58 @@ public class Bubble extends JLabel implements Moveable{
             }
         }).start();
     }
+
     @Override
     public void left() {
+        left = true;
+        for (int i = 0; i < 400; i++) {
+            x--;
+            setLocation(x, y);
 
+            if (backgroundBubbleService.leftWall()) {
+                break;
+            }
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        up();
     }
 
     @Override
     public void right() {
+        right = true;
+        for (int i = 0; i < 400; i++) {
+            x++;
+            setLocation(x, y);
 
+            if (backgroundBubbleService.rightWall()) {
+                break;
+            }
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        up();
     }
 
     @Override
     public void up() {
-
+        up = true;
+        while (up) {
+            y--;
+            setLocation(x, y);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
