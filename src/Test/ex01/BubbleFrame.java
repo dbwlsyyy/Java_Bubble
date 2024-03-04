@@ -1,14 +1,21 @@
 package Test.ex01;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@Getter
+@Setter
 // 윈도우 창 상속 (extends)
 public class BubbleFrame extends JFrame {
 
+    private BubbleFrame mContext = this;
     private JLabel backgroundMap;
     private Player player;
+    private Enemy enemy;
 
     public BubbleFrame() {
         initObject();
@@ -21,8 +28,10 @@ public class BubbleFrame extends JFrame {
         backgroundMap = new JLabel(new ImageIcon("Image/backgroundMap.png"));
         setContentPane(backgroundMap);
 
-        player = new Player();
+        player = new Player(mContext);
         add(player);
+        enemy = new Enemy(mContext);
+        add(enemy);
     }
 
     public void initSetting(){
@@ -54,8 +63,7 @@ public class BubbleFrame extends JFrame {
                         }
                         break;
                     case KeyEvent.VK_SPACE:
-                        Bubble bubble = new Bubble(player);
-                        add(bubble);
+                        player.attack();
                         break;
                 }
             }

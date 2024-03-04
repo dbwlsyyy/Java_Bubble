@@ -5,14 +5,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class BackgroundPlayerService implements Runnable {
 
     private BufferedImage image;
     private Player player;
+    private List<Bubble> bubbleList;
 
-    public BackgroundPlayerService(Player player) {
-        this.player = player;
+    public BackgroundPlayerService(BubbleFrame mContext) {
+        this.player = mContext.getPlayer();
+        this.bubbleList = mContext.getPlayer().getBubbleList();
 
         try {
             image = ImageIO.read(new File("image/backgroundMapService.png"));
