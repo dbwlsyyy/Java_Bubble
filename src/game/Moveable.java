@@ -1,4 +1,4 @@
-package Test.ex01;
+package game;
 
 public interface Moveable {
     public abstract void left();

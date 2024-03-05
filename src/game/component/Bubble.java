@@ -1,13 +1,17 @@
-package Test.ex01;
+package game.component;
 
+import game.BubbleFrame;
+import game.Moveable;
+import game.service.BackgroundBubbleService;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import javax.swing.*;
 
 @Getter
 @Setter
-public class Bubble extends JLabel implements Moveable{
+public class Bubble extends JLabel implements Moveable {
 
     private BubbleFrame mContext;
     // 버블의 위치는 플레이어를 참고해야하기 때문에 의존성 컴포지션 필요
@@ -77,9 +81,9 @@ public class Bubble extends JLabel implements Moveable{
 
             // 버블과 적군의 거리가 10
             if ((Math.abs(x - enemy.getX()) < 10) &&
-                    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50 ) {
+                    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50) {
                 // System.out.println("충돌");
-                if(enemy.getState() == 0){
+                if (enemy.getState() == 0) {
                     attack();
                     break;
                 }
@@ -108,9 +112,9 @@ public class Bubble extends JLabel implements Moveable{
 
             // 40과 60의 범위 절댓값
             if ((Math.abs(x - enemy.getX()) < 10) &&
-                    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50 ) {
+                    Math.abs(y - enemy.getY()) > 0 && Math.abs(y - enemy.getY()) < 50) {
                 // System.out.println("충돌");
-                if(enemy.getState() == 0){
+                if (enemy.getState() == 0) {
                     attack();
                     break;
                 }
@@ -138,13 +142,13 @@ public class Bubble extends JLabel implements Moveable{
             }
 
             try {
-                if(state == 0) Thread.sleep(1);
+                if (state == 0) Thread.sleep(1);
                 else Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        if(state == 0) clearBubble();
+        if (state == 0) clearBubble();
     }
 
     @Override
@@ -167,4 +171,20 @@ public class Bubble extends JLabel implements Moveable{
             throw new RuntimeException(e);
         }
     }
+
+    public void clearBubbled() {
+        new Thread(()->{
+            up = false;
+            setIcon(bomb);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            mContext.remove(this);
+            mContext.repaint();
+        }).start();
+
+    }
 }
+

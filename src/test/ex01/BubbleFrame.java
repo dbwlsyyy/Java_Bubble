@@ -1,4 +1,4 @@
-package Test.ex01;
+package test.ex01;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +32,7 @@ public class BubbleFrame extends JFrame {
         add(player);
         enemy = new Enemy(mContext);
         add(enemy);
+        // new BGM();
     }
 
     public void initSetting(){

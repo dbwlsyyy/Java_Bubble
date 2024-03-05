@@ -1,4 +1,4 @@
-package Test.ex01;
+package game.state;
 
 public enum PlayerDirecton {
     LEFT, RIGHT;

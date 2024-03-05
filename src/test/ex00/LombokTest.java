@@ -1,4 +1,4 @@
-package Test.ex00;
+package test.ex00;
 
 import lombok.Getter;
 import lombok.Setter;
